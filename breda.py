@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import sys, json, authsettings, random, os
+import sys, json, authsettings, random, os, traceback
 import flask
 app = flask.Flask(__name__)
 
@@ -31,11 +31,14 @@ def process_message():
 	chan = flask.request.form.get('channel_name')
 	message = flask.request.form.get('text').split()
 	if hasattr(handlers, message[1].lower()):
-		return json.dumps(dict(text=getattr(handlers, message[1].lower())(user, chan, message)))
+		try:
+			return json.dumps(dict(text=getattr(handlers, message[1].lower())(user, chan, message)))
+		except:
+			return json.dumps(dict(text="Oh, bummer: " + traceback.format_exc()))
 	else:
 		return json.dumps(dict(text=randomretort(message)))
-	print json.dumps(flask.request.form, indent=2)
-	return '{}'
+	#print json.dumps(flask.request.form, indent=2)
+	#return '{}'
 
 @app.route('/push/', methods=['POST'])
 def push():
