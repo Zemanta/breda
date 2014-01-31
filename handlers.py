@@ -37,6 +37,9 @@ def bicikelj(u, c, m):
 def wat(u, c, m):
 	return _pic('http://www.babel.crackerboxpalace.com/gifs/strangelove-wat.gif', 'wat')
 	
+def isee(u, c, m):
+	return _pic('http://bukk.it/fry-see.gif', 'isee')
+	
 def mijau(u, c, m):
 	url='http://thecatapi.com/api/images/get?format=src&type=gif'
 	return '<%s>' % urllib2.urlopen(urllib2.Request(url)).geturl()
