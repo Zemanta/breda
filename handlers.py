@@ -3,7 +3,12 @@
 import urllib2, time, re, random
 
 def _pic(url, title='pic'):
-	return '<%s?cb=%s|%s>' % (url, time.time(), title)
+	if '?' in url:
+		concat_char = '&'
+	else:
+		concat_char = '?'
+		
+	return '<%s%scb=%s|%s>' % (url, concat_char, time.time(), title)
 
 def piramida(user, chan, message):
 	menu = urllib2.urlopen('http://pizzerijapiramida.si/malice/').read()
