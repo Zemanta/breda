@@ -33,7 +33,7 @@ def wat(u, c, m):
 	return _pic('http://www.babel.crackerboxpalace.com/gifs/strangelove-wat.gif', 'wat')
 	
 def mijau(u, c, m):
-	return '<http://thecatapi.com/api/images/get?format=src&type=gif>'
+	return _pic('http://thecatapi.com/api/images/get?format=src&type=gif')
 
 def meow(u, c, m):
 	return mijau(u, c, m)
