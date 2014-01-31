@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-
 
-import urllib2, time, re
+import urllib2, time, re, random
 
 def piramida(user, chan, message):
 	menu = urllib2.urlopen('http://pizzerijapiramida.si/malice/').read()
@@ -18,7 +18,7 @@ def piramida(user, chan, message):
 		return "I really can't tell, head to <http://pizzerijapiramida.si/malice/|the page> to see what's cookin'."
 
 def radar(u, c, m):
-	return '<http://www.arso.gov.si/vreme/napovedi%20in%20podatki/radar_anim.gif|SIRAD>'
+	return '<http://www.arso.gov.si/vreme/napovedi%20in%20podatki/radar_anim.gi?cb=f%s|SIRAD>' % random.random()
 
 def where(u, c, m):
 	return '<https://github.com/Zemanta/breda|At home, of course.>'
