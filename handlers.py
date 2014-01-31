@@ -2,13 +2,15 @@
 
 import urllib2, time, re, random, json
 
-def _pic(url, title='pic'):
+def _pic(url, title=None):
 	if '?' in url:
 		concat_char = '&'
 	else:
 		concat_char = '?'
-		
-	return '<%s%scb=%s|%s>' % (url, concat_char, time.time(), title)
+	if title:
+		return '<%s%scb=%s|%s>' % (url, concat_char, time.time(), title)
+	else:
+		return '<%s%scb=%s>' % (url, concat_char, time.time())
 
 def piramida(user, chan, message):
 	menu = urllib2.urlopen('http://pizzerijapiramida.si/malice/').read()
@@ -37,9 +39,9 @@ def bicikelj(u, c, m):
 def wat(u, c, m):
 	wat = json.load(urllib2.urlopen('http://watme.herokuapp.com/random')).get('wat')
 	if wat:
-		return _pic(wat, 'wat')
+		return _pic(wat)
 	else:
-		return _pic('http://www.babel.crackerboxpalace.com/gifs/strangelove-wat.gif', 'wat')
+		return _pic('http://www.babel.crackerboxpalace.com/gifs/strangelove-wat.gif')
 	
 def isee(u, c, m):
 	return _pic('http://bukk.it/fry-see.gif', 'isee')
