@@ -20,6 +20,9 @@ def piramida(user, chan, message):
 def radar(u, c, m):
 	return '<http://www.arso.gov.si/vreme/napovedi%20in%20podatki/radar_anim.gif|SIRAD>'
 
+def where(u, c, m):
+	return '<https://github.com/Zemanta/breda|At home, of course.>'
+
 if __name__ == '__main__':
 	import sys
 	if len(sys.argv) > 1:

@@ -30,8 +30,8 @@ def process_message():
 	user = flask.request.form.get('user_name')
 	chan = flask.request.form.get('channel_name')
 	message = flask.request.form.get('text').split()
-	if hasattr(handlers, message[1]):
-		return json.dumps(dict(text=getattr(handlers, message[1])(user, chan, message)))
+	if hasattr(handlers, message[1].lower()):
+		return json.dumps(dict(text=getattr(handlers, message[1].lower())(user, chan, message)))
 	else:
 		return json.dumps(dict(text=randomretort(message)))
 	print json.dumps(flask.request.form, indent=2)
