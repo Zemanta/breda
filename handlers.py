@@ -21,7 +21,7 @@ def piramida(user, chan, message):
 		return "I really can't tell, head to <http://pizzerijapiramida.si/malice/|the page> to see what's cookin'."
 
 def radar(u, c, m):
-	return pic('http://www.arso.gov.si/vreme/napovedi%20in%20podatki/radar_anim.gif', 'SIRAD')
+	return _pic('http://www.arso.gov.si/vreme/napovedi%20in%20podatki/radar_anim.gif', 'SIRAD')
 
 def where(u, c, m):
 	return '<https://github.com/Zemanta/breda|At home, of course.>'
@@ -30,7 +30,7 @@ def bicikelj(u, c, m):
 	return "They were all stolen, so just take a hike."
 
 def wat(u, c, m):
-	return pic('http://www.babel.crackerboxpalace.com/gifs/strangelove-wat.gif', 'wat')
+	return _pic('http://www.babel.crackerboxpalace.com/gifs/strangelove-wat.gif', 'wat')
 
 if __name__ == '__main__':
 	import sys
