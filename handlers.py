@@ -39,7 +39,7 @@ def wat(u, c, m):
 	
 def mijau(u, c, m):
 	url='http://thecatapi.com/api/images/get?format=src&type=gif'
-	return urllib2.urlopen(urllib2.Request(url)).geturl()
+	return '<%s>' % urllib2.urlopen(urllib2.Request(url)).geturl()
 
 def meow(u, c, m):
 	return mijau(u, c, m)
