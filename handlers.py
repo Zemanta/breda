@@ -2,6 +2,9 @@
 
 import urllib2, time, re, random
 
+def _pic(url, title='pic'):
+	return '<%s?cb=%s|%s>' % (url, time.time(), title)
+
 def piramida(user, chan, message):
 	menu = urllib2.urlopen('http://pizzerijapiramida.si/malice/').read()
 	ts = time.localtime()
@@ -18,13 +21,16 @@ def piramida(user, chan, message):
 		return "I really can't tell, head to <http://pizzerijapiramida.si/malice/|the page> to see what's cookin'."
 
 def radar(u, c, m):
-	return '<http://www.arso.gov.si/vreme/napovedi%%20in%%20podatki/radar_anim.gif?cb=%s|SIRAD>' % random.random()
+	return pic('http://www.arso.gov.si/vreme/napovedi%20in%20podatki/radar_anim.gif', 'SIRAD')
 
 def where(u, c, m):
 	return '<https://github.com/Zemanta/breda|At home, of course.>'
 
 def bicikelj(u, c, m):
 	return "They were all stolen, so just take a hike."
+
+def wat(u, c, m):
+	return pic('http://www.babel.crackerboxpalace.com/gifs/strangelove-wat.gif', 'wat')
 
 if __name__ == '__main__':
 	import sys
@@ -33,5 +39,7 @@ if __name__ == '__main__':
 			print vars()[sys.argv[1]](None, None, None)
 	else:
 		for k in locals().keys():
+			if k.startswith('_'):
+				continue
 			if hasattr(locals()[k], '__module__') and locals()[k].__module__ == '__main__':
 				print k
