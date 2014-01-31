@@ -43,6 +43,7 @@ def push():
 	if not data:
 		return ''
 	os.system('git pull')
+	return 'OK'
 
 @app.errorhandler(500)
 def unauthorized(error):
