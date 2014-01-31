@@ -35,7 +35,11 @@ def bicikelj(u, c, m):
 	return "They were all stolen, so just take a hike."
 
 def wat(u, c, m):
-	return _pic('http://www.babel.crackerboxpalace.com/gifs/strangelove-wat.gif', 'wat')
+	wat = json.load(urllib2.urlopen('http://watme.herokuapp.com/random')).get('wat')
+	if wat:
+		return _pic(wat, 'wat')
+	else:
+		return _pic('http://www.babel.crackerboxpalace.com/gifs/strangelove-wat.gif', 'wat')
 	
 def isee(u, c, m):
 	return _pic('http://bukk.it/fry-see.gif', 'isee')
