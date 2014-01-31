@@ -3,7 +3,12 @@
 import urllib2, time, re, random
 
 def _pic(url, title='pic'):
-	return '<%s?cb=%s|%s>' % (url, time.time(), title)
+	if '?' in url:
+		concat_char = '&'
+	else:
+		concat_char = '?'
+		
+	return '<%s%scb=%s|%s>' % (url, concat_char, time.time(), title)
 
 def piramida(user, chan, message):
 	menu = urllib2.urlopen('http://pizzerijapiramida.si/malice/').read()
@@ -33,7 +38,7 @@ def wat(u, c, m):
 	return _pic('http://www.babel.crackerboxpalace.com/gifs/strangelove-wat.gif', 'wat')
 	
 def mijau(u, c, m):
-	return '<http://thecatapi.com/api/images/get?format=src&type=gif>'
+	return _pic('http://thecatapi.com/api/images/get?format=src&type=gif')
 
 def meow(u, c, m):
 	return mijau(u, c, m)
