@@ -23,6 +23,9 @@ def radar(u, c, m):
 def where(u, c, m):
 	return '<https://github.com/Zemanta/breda|At home, of course.>'
 
+def bicikelj(u, c, m):
+	return "They were all stolen, so just take a hike."
+
 if __name__ == '__main__':
 	import sys
 	if len(sys.argv) > 1:
