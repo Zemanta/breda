@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import sys, json, authsettings, random
+import sys, json, authsettings, random, os
 import flask
 app = flask.Flask(__name__)
 
@@ -36,6 +36,13 @@ def process_message():
 		return json.dumps(dict(text=randomretort(message)))
 	print json.dumps(flask.request.form, indent=2)
 	return '{}'
+
+@app.route('/push/', methods=['POST'])
+def push():
+	data = json.loads(flask.request.form.get('payload', {}))
+	if not data:
+		return ''
+	os.system('git pull')
 
 @app.errorhandler(500)
 def unauthorized(error):
