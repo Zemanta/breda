@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-
 
-import urllib2, time, re, random
+import urllib2, time, re, random, json
 
 def _pic(url, title='pic'):
 	if '?' in url:
