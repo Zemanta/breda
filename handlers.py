@@ -12,6 +12,7 @@ def _pic(url, title=None):
 	else:
 		return '<%s%scb=%s.jpg>' % (url, concat_char, time.time())
 
+
 def piramida(user, chan, message):
 	menu = urllib2.urlopen('http://pizzerijapiramida.si/malice/').read()
 	ts = time.localtime()
@@ -43,8 +44,9 @@ def wat(u, c, m):
 	else:
 		return _pic('http://www.babel.crackerboxpalace.com/gifs/strangelove-wat.gif')
 
-def seinfeld(u, c, m):
-	data = json.load(urllib2.urlopen('http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=seinfeld')).get('data',{}).get('image_url')
+def giphy raw_input()  (u, c, m):
+	search = "raw_input()"
+	data = json.load(urllib2.urlopen('http://api.giphy.com/v1/gifs/search?q='+'search'+'limit=1')).get('data',{}).get('image_url')
 	if data:
 		return _pic(data)
 	else:
