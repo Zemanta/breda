@@ -46,7 +46,7 @@ def wat(u, c, m):
 
 def giphy raw_input("something") (u, c, m):
 	search = "raw_input()"
-	data = json.load(urllib2.urlopen('http://api.giphy.com/v1/gifs/search?q=','search')).get('data',{}).get('image_url')
+	data = json.load(urllib2.urlopen('http://api.giphy.com/v1/gifs/search?q='+'search'+'&api_key=dc6zaTOxFJmzC')).get('data',{}).get('image_url')
 	if data:
 		return _pic(data)
 	else:
