@@ -1,44 +1,13 @@
 #!/usr/bin/env python
 
-import sys, json, authsettings, random, os, traceback
+import json, authsettings, os, traceback
 
 import flask
 app = flask.Flask(__name__)
 
 import handlers
+import smartass
 
-here = lambda x: os.path.join(os.path.dirname(os.path.abspath(__file__)), x)
-
-try:
-	from cobe.brain import Brain
-	breda_brain_path = here("../breda.brain")
-	if os.path.exists(breda_brain_path):
-		breda_brain = Brain(breda_brain_path)
-	else:
-		raise Exception('No brain file found')
-except Exception:
-	breda_brain = None
-
-
-def randomretort(message):
-	retorts = [
-		"I don't have a clue about %s!",
-		"Never heard of it!",
-		"Dunno",
-		"No idea.",
-		"Haven't the faintest.",
-		"Should %s mean anything to me?",
-		"%s? That place in Hungary?",
-		"Did you mean <http://google.com/?q=beaver+tails|Beaver Tails>?",
-	]
-	ret = random.choice(retorts)
-	if '%s' in ret:
-		return ret % ' '.join(message[1:])
-	else:
-		return ret
-
-def cobe_replay(message):
-	return breda_brain.reply(' '.join(message))
 
 @app.route('/msg/', methods=['POST'])
 def process_message():
@@ -50,10 +19,8 @@ def process_message():
 	try:
 		if hasattr(handlers, message[1].lower()):
 			return json.dumps(dict(text=getattr(handlers, message[1].lower())(user, chan, message)))
-		elif breda_brain:
-			return json.dumps(dict(text=cobe_replay(message)))
 		else:
-			return json.dumps(dict(text=randomretort(message)))
+			return json.dumps(dict(text=smartass.replay(message)))
 	except:
 		return json.dumps(dict(text="Oh, bummer: " + traceback.format_exc()))
 
