@@ -46,7 +46,7 @@ def process_message():
 		flask.abort(403)
 	user = flask.request.form.get('user_name')
 	chan = flask.request.form.get('channel_name')
-	message = flask.request.form.get('text').split()
+	message = flask.request.form.get('text').encode('utf-8').split()
 	try:
 		if hasattr(handlers, message[1].lower()):
 			return json.dumps(dict(text=getattr(handlers, message[1].lower())(user, chan, message)))
