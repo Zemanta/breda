@@ -63,6 +63,7 @@ def push():
 	if not data:
 		return ''
 	os.system('git pull')
+	os.system('supervisorctl restart breda')
 	return 'OK'
 
 @app.errorhandler(500)
