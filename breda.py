@@ -1,10 +1,24 @@
 #!/usr/bin/env python
 
 import sys, json, authsettings, random, os, traceback
+
 import flask
 app = flask.Flask(__name__)
 
 import handlers
+
+here = lambda x: os.path.join(os.path.dirname(os.path.abspath(__file__)), x)
+
+try:
+	from cobe.brain import Brain
+	breda_brain_path = here("../breda.brain")
+	if os.path.exists(breda_brain_path):
+		breda_brain = Brain(breda_brain_path)
+	else:
+		raise Exception('No brain file found')
+except Exception:
+	breda_brain = None
+
 
 def randomretort(message):
 	retorts = [
@@ -23,6 +37,9 @@ def randomretort(message):
 	else:
 		return ret
 
+def cobe_replay(message):
+	return breda_brain.replay(message)
+
 @app.route('/msg/', methods=['POST'])
 def process_message():
 	if flask.request.form.get('token') != authsettings.AUTH_TOKEN:
@@ -30,15 +47,15 @@ def process_message():
 	user = flask.request.form.get('user_name')
 	chan = flask.request.form.get('channel_name')
 	message = flask.request.form.get('text').split()
-	if hasattr(handlers, message[1].lower()):
-		try:
+	try:
+		if hasattr(handlers, message[1].lower()):
 			return json.dumps(dict(text=getattr(handlers, message[1].lower())(user, chan, message)))
-		except:
-			return json.dumps(dict(text="Oh, bummer: " + traceback.format_exc()))
-	else:
-		return json.dumps(dict(text=randomretort(message)))
-	#print json.dumps(flask.request.form, indent=2)
-	#return '{}'
+		elif breda_brain:
+			return json.dumps(dict(text=cobe_replay(message)))
+		else:
+			return json.dumps(dict(text=randomretort(message)))
+	except:
+		return json.dumps(dict(text="Oh, bummer: " + traceback.format_exc()))
 
 @app.route('/push/', methods=['POST'])
 def push():
@@ -49,14 +66,14 @@ def push():
 	return 'OK'
 
 @app.errorhandler(500)
-def unauthorized(error):
+def unauthorized_500(error):
 	return flask.Response(
 		'Pretend nothing is wrong.',
 		status=200,
 		mimetype='text/plain')
 
 @app.errorhandler(403)
-def unauthorized(error):
+def unauthorized_403(error):
 	return flask.Response(
 		'You are not authorized to access this service.',
 		status=403,
