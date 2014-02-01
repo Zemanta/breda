@@ -12,7 +12,6 @@ def _pic(url, title=None):
 	else:
 		return '<%s%scb=%s.jpg>' % (url, concat_char, time.time())
 
-
 def piramida(user, chan, message):
 	menu = urllib2.urlopen('http://pizzerijapiramida.si/malice/').read()
 	ts = time.localtime()
@@ -44,12 +43,19 @@ def wat(u, c, m):
 	else:
 		return _pic('http://www.babel.crackerboxpalace.com/gifs/strangelove-wat.gif')
 
+def random(u, c, m):
+	data = json.load(urllib2.urlopen('http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC')).get('data',{}).get('image_url')
+	if data:
+		return _pic(data)
+	else:
+		return _pic('http://www.babel.crackerboxpalace.com/gifs/strangelove-wat.gif')
+
 def dance(u, c, m):
 	return _pic('http://bukk.it/howidoclurbs.gif', 'dance')
 
 def isee(u, c, m):
 	return _pic('http://bukk.it/fry-see.gif', 'isee')
-	
+
 def mijau(u, c, m):
 	url='http://thecatapi.com/api/images/get?format=src&type=gif'
 	return '<%s>' % urllib2.urlopen(urllib2.Request(url)).geturl()
