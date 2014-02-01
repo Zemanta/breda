@@ -38,7 +38,7 @@ def randomretort(message):
 		return ret
 
 def cobe_replay(message):
-	return breda_brain.reply(message)
+	return breda_brain.reply(' '.join(message))
 
 @app.route('/msg/', methods=['POST'])
 def process_message():
