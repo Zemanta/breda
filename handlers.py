@@ -8,9 +8,9 @@ def _pic(url, title=None):
 	else:
 		concat_char = '?'
 	if title:
-		return '<%s%scb=%s|%s>' % (url, concat_char, time.time(), title)
+		return '<%s%scb=%s.jpg|%s>' % (url, concat_char, time.time(), title)
 	else:
-		return '<%s%scb=%s>' % (url, concat_char, time.time())
+		return '<%s%scb=%s.jpg>' % (url, concat_char, time.time())
 
 def piramida(user, chan, message):
 	menu = urllib2.urlopen('http://pizzerijapiramida.si/malice/').read()
