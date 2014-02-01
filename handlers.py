@@ -44,9 +44,9 @@ def wat(u, c, m):
 	else:
 		return _pic('http://www.babel.crackerboxpalace.com/gifs/strangelove-wat.gif')
 
-def giphy input()  (u, c, m):
-	search = "input()"
-	data = json.load(urllib2.urlopen('http://api.giphy.com/v1/gifs/search?q='+'search'+'limit=1')).get('data',{}).get('image_url')
+def giphy raw_input("something") (u, c, m):
+	search = "raw_input()"
+	data = json.load(urllib2.urlopen('http://api.giphy.com/v1/gifs/search?q=','search')).get('data',{}).get('image_url')
 	if data:
 		return _pic(data)
 	else:
