@@ -43,6 +43,9 @@ def wat(u, c, m):
 	else:
 		return _pic('http://www.babel.crackerboxpalace.com/gifs/strangelove-wat.gif')
 	
+def dance(u, c, m):
+	return _pic('http://bukk.it/howidoclurbs.gif', 'dance')
+
 def isee(u, c, m):
 	return _pic('http://bukk.it/fry-see.gif', 'isee')
 	
