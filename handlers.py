@@ -55,6 +55,9 @@ def dance(u, c, m):
 
 def isee(u, c, m):
 	return _pic('http://bukk.it/fry-see.gif', 'isee')
+	
+def ringthebell(u, c, m):
+	return _pic('https://31.media.tumblr.com/5e0b1b63d56a8a548668eac493486645/tumblr_n0uiwk4lny1qftc1no1_250.gif', 'ringthebell')	
 
 def mijau(u, c, m):
 	url='http://thecatapi.com/api/images/get?format=src&type=gif'
