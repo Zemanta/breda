@@ -54,6 +54,12 @@ def relay_seyren():
 	check_url = 'http://seyren.zemanta.com/#/checks/%s' % check.get('id')
 	check_name = check.get('name', '')
 	check_desc = check.get('description', '')
+	subs = check.get('subscriptions', [])
+	nicks = ''
+	for sub in subs:
+		if sub.get('type') == 'IRCCAT':
+			nicks = sub.get('target') + ' '
+			break
 	preview = flask.request.json.get('preview')
 	try:
 		chart_url = re.findall(r'img src=(.*)></img>$', preview)[0]
@@ -74,7 +80,7 @@ def relay_seyren():
 			emo = 'rage'
 		else:
 			emo = 'confused'
-		_post_message('seyren', '#devops', '<%(check_url)s|%(check_name)s> changed from %(from_type)s to %(to_type)s, value was %(value)s (warn: %(warn)s, crit: %(error)s) :%(emo)s:' % vars())
+		_post_message('seyren', '#devops', '%(nicks)s<%(check_url)s|%(check_name)s> changed from %(from_type)s to %(to_type)s, value was %(value)s (warn: %(warn)s, crit: %(error)s) :%(emo)s:' % vars())
 		if chart_url:
 			_post_message('seyren', '#devops', '<%s|check chart>' % chart_url)
 	return flask.Response(
