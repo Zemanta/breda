@@ -62,7 +62,7 @@ def relay_seyren():
 			break
 	preview = flask.request.json.get('preview')
 	try:
-		chart_url = re.findall(r'img src=(.*)></img>$', preview)[0]
+		chart_url = re.findall(r'img src=(.*)></img>$', preview, re.M)[0]
 	except:
 		chart_url = ''
 	alerts = flask.request.json.get('alerts', [])
@@ -72,6 +72,7 @@ def relay_seyren():
 		value = alert.get('value', 0)
 		error = alert.get('error', 0)
 		warn = alert.get('warn', 0)
+		target = alert.get('target', 'unknown')
 		if to_type == 'OK':
 			emo = 'smile'
 		elif to_type == 'WARN':
@@ -80,7 +81,7 @@ def relay_seyren():
 			emo = 'rage'
 		else:
 			emo = 'confused'
-		_post_message('seyren', '#devops', '%(nicks)s<%(check_url)s|%(check_name)s> changed from %(from_type)s to %(to_type)s, value was %(value)s (warn: %(warn)s, crit: %(error)s) :%(emo)s:' % vars())
+		_post_message('seyren', '#devops', '%(nicks)s<%(check_url)s|%(check_name)s> (%(target)s) changed from %(from_type)s to %(to_type)s, value was %(value)s (warn: %(warn)s, crit: %(error)s) :%(emo)s:' % vars())
 		if chart_url:
 			_post_message('seyren', '#devops', '<%s|check chart>' % chart_url)
 	return flask.Response(
