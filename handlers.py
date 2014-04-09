@@ -12,6 +12,15 @@ def _pic(url, title=None):
 	else:
 		return '<%s%scb=%s.jpg>' % (url, concat_char, time.time())
 
+def durs(user, chan, message):
+	for davcna in re.findall(r'[0-9]{8,10}', ' '.join(message)):
+		response = urllib2.urlopen('http://vida.durs.si/manager/rest/index/assistantsearch?userQuery=%s' % davcna).read()
+		data = json.loads(response[response.find('(')+1:-1])
+		answer = data.get('assistantProperties', {}).get('answer', "")
+		if not answer:
+			answer = 'Nothing useful returned.'
+		return answer
+
 def piramida(user, chan, message):
 	menu = urllib2.urlopen('http://pizzerijapiramida.si/malice/').read()
 	ts = time.localtime()
