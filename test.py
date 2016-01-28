@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-import urllib2, urllib, sys, authsettings
+import urllib2, urllib, sys
 
 request = dict(
-	token=authsettings.AUTH_TOKEN,
+	token='xxxxx',
 	team_id='T0001',
 	channel_id='C2147483705',
 	channel_name='test',
@@ -13,5 +13,6 @@ request = dict(
 	text=' '.join(sys.argv[1:]),
 )
 
-print urllib2.urlopen('http://localhost:3201/msg/', urllib.urlencode(request)).read()
+print urllib2.urlopen('http://localhost:5000/slack/', urllib.urlencode(request)).read()
+
 
