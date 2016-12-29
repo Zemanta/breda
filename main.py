@@ -46,6 +46,10 @@ def _pic(url, title=None):
         return '<%s%scb=%s.jpg|%s>' % (url, concat_char, time.time(), title)
     else:
         return '<%s%scb=%s.jpg>' % (url, concat_char, time.time())
+    
+
+def slack_decide(user, chan, chunks):
+    return random.choice(chunks[2:])
 
 
 def slack_bicikelj(u, c, m):
