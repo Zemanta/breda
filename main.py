@@ -134,7 +134,7 @@ def slack_piramida(user, chan, message):
 def slack_pivnica(user, chan, message):
     site = BeautifulSoup(urllib2.urlopen('http://www.pivnica-union.si/si/').read(), "html.parser")
     for day_title in site.find_all('h4', class_='foodDayMenuBlockTitle'):
-        if time.strftime('%-d. %-m. %Y') in day_title.string:
+        if time.strftime('%-d. %-m.') in day_title.string:
             return "\n".join(day_title.find_next('div', class_='foodItemDesc').stripped_strings)
     return "I really can't tell, head to <http://www.pivnica-union.si/si/> to see what's cookin'."
 
