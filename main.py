@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import datetime
 import urllib2
 import time
 import re
@@ -146,6 +147,45 @@ def slack_dishi(user, chan, message):
     if items:
         return "\n".join(item.get_text() for item in items)
     return "I really can't tell, head to <http://dishi.eu/?page_id=28> to see what's cookin'."
+
+
+def slack_chinese(user, chan, message):
+    site = BeautifulSoup(urllib2.urlopen('http://www.dobrotevzhoda.si/jedilni-list/').read(), 'html.parser')
+    items = site.find_all('h2', class_='tabtitle')
+    for h2 in items:
+        if h2.text == 'KOSILO':
+            break
+    else:
+        return "I really can't tell, head to <http://www.dobrotevzhoda.si/jedilni-list/> to see what's cookin'."
+
+    for next_element in h2.next_elements:
+        if next_element.name == 'table':
+            break
+    else:
+        return "I really can't tell, head to <http://www.dobrotevzhoda.si/jedilni-list/> to see what's cookin'."
+
+    days = {
+        1: 'Ponedeljek',
+        2: 'Torek',
+        3: 'Sreda',
+        4: u'Četrtek',
+        5: 'Petek',
+        6: 'Sobota',
+        7: 'Nedelje',
+    }
+    found_day = False
+    lst = []
+    today_str = days[datetime.date.today().isoweekday()]
+    for tr in next_element.find_all('tr'):
+        if not found_day and today_str not in tr.text:
+            continue
+
+        found_day = True
+        if today_str not in tr.text and any(day in tr.text for day in days.values()):
+            break
+
+        lst.append(' '.join(e.text for e in tr.find_all('td')))
+    return '\n'.join(lst)
 
 
 def slack_food(user, chan, message):
