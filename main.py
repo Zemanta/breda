@@ -140,15 +140,6 @@ def slack_pivnica(user, chan, message):
     return "I really can't tell, head to <http://www.pivnica-union.si/si/> to see what's cookin'."
 
 
-def slack_dishi(user, chan, message):
-    site = BeautifulSoup(urllib2.urlopen(
-        'http://www.gostilne.si/jedilnik.php?uid=910').read(), "html.parser")
-    items = site.find_all('div', class_='menu')
-    if items:
-        return "\n".join(item.get_text() for item in items)
-    return "I really can't tell, head to <http://dishi.eu/?page_id=28> to see what's cookin'."
-
-
 def slack_chinese(user, chan, message):
     site = BeautifulSoup(urllib2.urlopen('http://www.dobrotevzhoda.si/jedilni-list/').read(), 'html.parser')
     items = site.find_all('h2', class_='tabtitle')
@@ -192,7 +183,7 @@ def slack_food(user, chan, message):
     list = [
         "*Piramida*\n%s" % slack_piramida(user, chan, message),
         "*Pivnica*\n%s" % slack_pivnica(user, chan, message),
-        "*Dishi*\n%s" % slack_dishi(user, chan, message)
+        "*Chinese*\n%s" % slack_chinese(user, chan, message),
     ]
     return "\n\n".join(list)
 
