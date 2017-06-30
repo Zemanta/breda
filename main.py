@@ -127,7 +127,7 @@ def slack_piramida(user, chan, message):
     daymenu = daymenu.replace(' 1.', '\n 1.')
     if len(daymenu) > 20:
         ret = tss[2:] + '\n' + daymenu
-        return ret.decode('utf-8')
+        return ret.decode('utf-8', errors='replace')
     else:
         return "I really can't tell, head to <http://pizzerijapiramida.si/malice/|the page> to see what's cookin'."
 
