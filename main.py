@@ -47,7 +47,7 @@ def _pic(url, title=None):
         return '<%s%scb=%s.jpg|%s>' % (url, concat_char, time.time(), title)
     else:
         return '<%s%scb=%s.jpg>' % (url, concat_char, time.time())
-    
+
 
 def slack_decide(user, chan, chunks):
     return random.choice(chunks[2:])
@@ -211,6 +211,13 @@ def slack_random(u, c, m):
         return _pic(data)
     else:
         return _pic('http://www.babel.crackerboxpalace.com/gifs/strangelove-wat.gif')
+
+
+def slack_inspire(*args):
+    headers = { 'User-Agent' : 'Mozilla/5.0' }
+    req = urllib2.Request('http://inspirobot.me/api?generate=true', None, headers)
+    img_url = urllib2.urlopen(req).read()
+    return _pic(img_url)
 
 
 if __name__ == '__main__':
