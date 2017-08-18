@@ -182,7 +182,7 @@ def slack_chinese(user, chan, message):
 def slack_food(user, chan, message):
     list = [
         "*Piramida*\n%s" % slack_piramida(user, chan, message),
-        "*Pivnica*\n%s" % slack_pivnica(user, chan, message),
+        "*Pivnica*\n%s" % 'FIXME: new site',  # slack_pivnica(user, chan, message),
         "*Chinese*\n%s" % slack_chinese(user, chan, message),
     ]
     return "\n\n".join(list)
