@@ -116,7 +116,11 @@ def slack_makin(u, c, m):
 
 
 def slack_piramida(user, chan, message):
-    menu = urllib2.urlopen('http://pizzerijapiramida.si/malice/').read()
+    url = 'http://pizzerijapiramida.si/malice/'
+    try:
+        menu = urllib2.urlopen(url).read()
+    except Exception:
+        return 'I really can\'t tell, %s is not responding.' % url
     ts = time.localtime()
     tss = ', %s.%s.%s' % (ts.tm_mday, ts.tm_mon, ts.tm_year % 100)
     start = menu.find(tss) + len(tss)
