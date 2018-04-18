@@ -122,13 +122,16 @@ def slack_piramida(user, chan, message):
     except Exception:
         return 'I really can\'t tell, %s is not responding.' % url
     ts = time.localtime()
-    tss = ', %s.%s.%s' % (ts.tm_mday, ts.tm_mon, ts.tm_year % 100)
+    tss = ',%s.%s.%s' % (ts.tm_mday, ts.tm_mon, ts.tm_year % 100)
     start = menu.find(tss) + len(tss)
     end = menu.find('</div>', start)
-    daymenu = re.sub(r'<[^>]+?>', ' ', menu[start:end])
-    daymenu = daymenu.replace('\n', '').replace('\r', '').replace('€', '€\n').replace('&nbsp;', '')
+    daymenu = re.sub(r'</p>', '\n', menu[start:end])
+    daymenu = re.sub(r'<[^>]+?>', ' ', daymenu)
+    daymenu = daymenu.replace('\r', '').replace('€', '€\n').replace('&nbsp;', '')
     daymenu = re.sub(r' +', ' ', daymenu)
-    daymenu = daymenu.replace(' 1.', '\n 1.')
+    daymenu = re.sub(r'(\n\s+\n)', '\n', daymenu)
+    daymenu = re.sub(r'(\n )', '\n', daymenu)
+    daymenu = daymenu.strip()
     if len(daymenu) > 20:
         ret = tss[2:] + '\n' + daymenu
         return ret.decode('utf-8', errors='replace')
